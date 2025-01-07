@@ -20,9 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from a .env file
 load_dotenv()
 
-# Now you can access the WEATHER_API_KEY
 OPEN_WEATHER_MAP_API_KEY = os.getenv("OPEN_WEATHER_MAP_API_KEY")
+OPEN_WEATHER_MAP_BASE_URL = os.getenv('OPEN_WEATHER_MAP_BASE_URL')
+OPEN_WEATHER_MAP_UNITS = os.getenv('OPEN_WEATHER_MAP_UNITS', default='metric')
+
+WEATHER_STACK_BASE_URL = os.getenv('WEATHER_STACK_BASE_URL')
 WEATHER_STACK_API_KEY = os.getenv("WEATHER_STACK_API_KEY")
+
+WEATHER_BIT_BASE_URL = os.getenv('WEATHER_BIT_BASE_URL')
 WEATHER_BIT_API_KEY = os.getenv("WEATHER_BIT_API_KEY")
 
 
@@ -30,7 +35,7 @@ WEATHER_BIT_API_KEY = os.getenv("WEATHER_BIT_API_KEY")
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ksmncf*s5za8vj0jf^+oh@c*1#t2@y0$-q%p(4l0(2zlrz17jx'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,9 +141,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# settings.py
-
-# Configure the cache to use Redis
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -147,4 +149,10 @@ CACHES = {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
+}
+
+SERVICE_CONFIDENCE_SCORES = {
+    "OpenWeatherMap": 0.8,
+    "WeatherStack": 0.6,
+    "WeatherBit": 0.7,
 }

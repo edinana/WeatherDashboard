@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class WeatherConditionCategory(Enum):
     CLOUDY = "Cloudy"
     SUNNY = "Sunny"

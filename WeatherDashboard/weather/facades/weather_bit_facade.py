@@ -1,15 +1,20 @@
-from .weather_service import WeatherService
+from ..services.weather_service import WeatherService
+from django.conf import settings
 import requests
 
 
 class WeatherBitFacade(WeatherService):
-    def __init__(self, api_key):
-        self.api_key = api_key
+    def __init__(self):
+        self.base_url = settings.WEATHER_BIT_BASE_URL
+        self.api_key = settings.WEATHER_BIT_API_KEY
 
     def fetch_weather_data(self, city):
-        url = f'https://api.weatherbit.io/v2.0/current?city={city}&key={self.api_key}'
         try:
-            response = requests.get(url)
+            params = {
+                "city": city,
+                "key": self.api_key
+            }
+            response = requests.get(self.base_url, params=params)
             response.raise_for_status()
             data = response.json()
 
@@ -21,8 +26,7 @@ class WeatherBitFacade(WeatherService):
                     "humidity": weather_info["rh"],
                     "wind": weather_info['wind_spd']
                 }
-                print("WEATHER BIT")
-                print(weather_data)
+
                 return weather_data
             else:
                 print(f"WeatherBit: No data found for city {city}")

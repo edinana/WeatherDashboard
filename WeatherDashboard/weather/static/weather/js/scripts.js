@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const humidityValue = humidity.textContent.split(":")[1].trim().replace("%", "");
         const windSpeedValue = windSpeed.textContent.split(":")[1].trim().replace("mph", "") * 0.44704;
 
+        // generated in user session
         const csrfToken = getCookie('csrftoken');
 
         fetch('/forecast/', {
@@ -116,8 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const forecastData = document.getElementById('forecast-data');
             const closeModal = document.querySelector('.close');
 
-            // Populate the modal with forecast data
-            console.log(data)
             forecastData.innerHTML = `
                 <p><strong>City:</strong> ${city}</p>
                 <p><strong>Temperature:</strong> ${Math.round(data.forecast.forecast_temperature)}°C</p>
@@ -126,15 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p><strong>Wind Speed:</strong> ${Math.round(data.forecast.forecast_wind_speed * 2.23694)} mph</p>
             `;
 
-            // Display the modal
             modal.style.display = "block";
 
-            // Close the modal when clicking the close button
             closeModal.onclick = function() {
                 modal.style.display = "none";
             };
 
-            // Close the modal when clicking outside of it
             window.onclick = function(event) {
                 if (event.target === modal) {
                     modal.style.display = "none";

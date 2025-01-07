@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class WeatherData(models.Model):
     city_name = models.CharField(max_length=255)
     datetime = models.DateTimeField()
