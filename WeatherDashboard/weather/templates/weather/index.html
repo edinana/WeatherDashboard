@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast</title>
+    {% load static %}
+    {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'weather/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SkyCast</h1>
+        </header>
+
+        <section class="location">
+            <label for="capital-select">Location:</label>
+            <select id="capital-select">
+                <option value="">Select a Capital</option>
+            </select>
+        </section>
+
+        <section class="weather-display">
+            <div class="weather-card">
+                <h2 id="city-name">Cairo</h2>
+                <p id="date">January 4, 2025</p>
+                <p id="temperature">25°C</p>
+                <p id="condition">Sunny</p>
+                <p id="humidity">50%</p>
+                <p id="wind-speed">10 mph</p>
+            </div>
+        </section>
+
+        <button id="forecast-button">Forecast Next Hour</button>
+        <div id="forecast-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Forecast for the Next Hour</h2>
+                <div id="forecast-data"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{% static 'weather/js/scripts.js' %}"></script>
+</body>
+</html>
