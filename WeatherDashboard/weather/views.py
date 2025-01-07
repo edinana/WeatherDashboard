@@ -28,7 +28,6 @@ def forecast(request):
 def weather_view(request, city):
     weather_data_fetcher = WeatherDataFetcher([
         OpenWeatherMapFacade(),
-        WeatherStackFacade(),
         WeatherBitFacade()]
     )
     weather_data = weather_data_fetcher.fetch_data(city)
