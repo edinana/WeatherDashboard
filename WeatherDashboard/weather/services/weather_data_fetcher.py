@@ -1,6 +1,8 @@
 from ..helpers.helpers import Helper
 from django.core.cache import cache
 from django.conf import settings
+from ..models import WeatherData
+from datetime import datetime
 
 
 class WeatherDataFetcher:
@@ -26,6 +28,15 @@ class WeatherDataFetcher:
         if len(weather_data) > 0:
             combined_weather_data = self.combine_weather_data(weather_data)
             cache.set(cache_key, combined_weather_data, timeout=3600)
+
+            WeatherData.objects.create(
+                city_name=city,
+                datetime=datetime.now().replace(minute=0, second=0, microsecond=0),
+                temperature=round(combined_weather_data['temp'], 1),
+                humidity=round(combined_weather_data['humidity']),
+                wind_speed=round(combined_weather_data['wind'], 2),
+                weather_description=combined_weather_data['condition']
+            )
 
             return combined_weather_data
         else:
