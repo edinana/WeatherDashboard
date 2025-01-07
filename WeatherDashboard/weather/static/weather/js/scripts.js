@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const temperatureValue = temperature.textContent.split(":")[1].trim().replace("°C", "");
         const conditionValue = condition.textContent;
         const humidityValue = humidity.textContent.split(":")[1].trim().replace("%", "");
-        const windSpeedValue = windSpeed.textContent.split(":")[1].trim().replace("mph", "");
+        const windSpeedValue = windSpeed.textContent.split(":")[1].trim().replace("mph", "") * 0.44704;
 
         const csrfToken = getCookie('csrftoken');
 
